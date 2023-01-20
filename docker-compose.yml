@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  app:
+    container_name: app-type-basics
+    restart: always
+    build: .
+    environment:
+      - PORT=4444
+    ports:
+      - "4444:4444"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
