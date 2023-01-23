@@ -7,6 +7,7 @@ type DBInput = {
 export default ({ db }: DBInput) => {
     const connect = () => {
         mongoose
+            .set('strictQuery', false)
             .connect(db, {})
             .then(() => {
                 return console.info(`Successfully connected to ${db}`);

@@ -16,14 +16,38 @@ async function createUser({
         firstName,
         lastName
     })
-        .then((data: IUser) => {
-            return data;
-        })
-        .catch((error: Error) => {
-            throw error;
-        });
+        .then((data: IUser) => data)
+        .catch((err: Error) => { throw err });
 };
 
+async function getUsers(): Promise<IUser[]> {
+    return User.find()
+        .then((data: IUser[]) => data)
+        .catch((err: Error) => { throw err })
+};
+
+async function getUserById(id: string) {
+    return User.findById(id)
+        .then((data) => data)
+        .catch((err: Error) => { throw err })
+};
+
+async function uptadeUserById(id: string, user: IUser) {
+    return User.findByIdAndUpdate(id, user, { new: true })
+        .then((data) => data)
+        .catch((err: Error) => { throw err })
+}
+
+async function deleteUserById(id: string) {
+    return User.findByIdAndDelete(id)
+        .then((data) => data)
+        .catch((err: Error) => { throw err })
+}   
+
 export default {
-    createUser
+    createUser,
+    getUsers,
+    getUserById,
+    uptadeUserById,
+    deleteUserById,
 };
