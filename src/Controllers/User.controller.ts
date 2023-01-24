@@ -4,17 +4,24 @@ interface ICreateUserInput {
     email: IUser['email'];
     firstName: IUser['firstName'];
     lastName: IUser['lastName'];
+    userName: IUser['userName'];
+    pass: IUser['password'];
 }
 
 async function createUser({
     email,
     firstName,
-    lastName
+    lastName,
+    userName,
+    pass
 }: ICreateUserInput): Promise<IUser> {
+    const password = await User.encryptPassword(pass);
     return User.create({
         email,
         firstName,
-        lastName
+        lastName,
+        userName,
+        password
     })
         .then((data: IUser) => data)
         .catch((err: Error) => { throw err });

@@ -1,7 +1,9 @@
 import express from "express";
+const jwt = require("jsonwebtoken");
 import { Request, Response } from 'express';
 import { IUser } from '../Models/User.models';
 import UserController from '../Controllers/User.controller';
+import config from '../config/keyConfig';
 
 const router = express.Router();
 
@@ -34,12 +36,21 @@ router
         const newUser = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            userName: req.body.username,
             email: req.body.email,
+            pass: req.body.password,
         }
-
         try {
             const createdUser: IUser = await UserController.createUser(newUser);
-            return res.status(201).send({ status: "Created", data: createdUser });
+            const token = jwt.sign(
+                {
+                  userId: createdUser._id,
+                  email: createdUser.email,
+                },
+                config.SECRET,
+                { expiresIn: "2h" }
+              );
+            return res.status(201).send({ status: "Created", data: createdUser, token });
 
         } catch (error: any) {
             res
@@ -55,7 +66,7 @@ router
 
         try {
             const updatedUser = await UserController.uptadeUserById(userid, body);
-            return res.send({ status: "OK", data: updatedUser });
+            return res.status(200).send({ status: "OK", data: updatedUser });
         } catch (error: any) {
             res
                 .status(error.status || 500)
