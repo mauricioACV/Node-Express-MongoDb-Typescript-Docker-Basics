@@ -1,55 +1,103 @@
 import User, { IUser } from '../Models/User.models';
+import { Request, Response } from 'express';
+import Role from '../Models/Role.models';
+import config from '../config/keyConfig';
+const jwt = require("jsonwebtoken");
 
-interface ICreateUserInput {
-    email: IUser['email'];
-    firstName: IUser['firstName'];
-    lastName: IUser['lastName'];
-    userName: IUser['userName'];
-    pass: IUser['password'];
+const createUser = async (req: Request, res: Response) => {
+    const { body } = req;
+    const { roles } = body;
+    try {
+        const newUser = new User({
+            firstName: body.firstname,
+            lastName: body.lastname,
+            userName: body.username,
+            email: body.email,
+            password: await User.encryptPassword(body.password),
+        });
+
+        if (roles) {
+            const foundRoles = await Role.find({ name: { $in: roles } });
+            newUser.roles = foundRoles.map(role => role._id);
+        } else {
+            const role = await Role.findOne({ name: 'user' });
+            newUser.roles = [role?._id];
+        }
+
+        const createdUser = await newUser.save();
+        const token = jwt.sign(
+            {
+                userId: createdUser._id,
+                email: createdUser.email,
+            },
+            config.SECRET,
+            { expiresIn: "2h" }
+        );
+        return res.status(201).send({ status: "Created", data: createdUser, token });
+
+    } catch (error: any) {
+        res
+            .status(error?.status || 500)
+            .send({ status: "FAILDED", data: { error: error?.message || error } });
+    }
+};
+
+const getUsers = async (req: Request, res: Response) => {
+    try {
+        const users: IUser[] = await User.find();
+        return res.send({ status: "OK", data: users });
+    } catch (error: any) {
+        res
+            .status(error.status || 500)
+            .send({ status: "FAILED", data: { error: error?.message || error } });
+    }
+};
+
+const getUserById = async (req: Request, res: Response) => {
+    const {
+        params: { userid },
+    } = req;
+
+    try {
+        const user = await User.findById(userid);
+        return res.send({ status: "OK", data: user });
+    } catch (error: any) {
+        res
+            .status(error.status || 500)
+            .send({ status: "FAILED", data: { error: error?.message || error } });
+    }
+};
+
+const uptadeUserById = async (req: Request, res: Response) => {
+    const {
+        body,
+        params: { userid },
+    } = req;
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(userid, body, { new: true });
+        return res.status(200).send({ status: "OK", data: updatedUser });
+    } catch (error: any) {
+        res
+            .status(error.status || 500)
+            .send({ status: "FAILED", data: { error: error?.message || error } });
+    }
 }
 
-async function createUser({
-    email,
-    firstName,
-    lastName,
-    userName,
-    pass
-}: ICreateUserInput): Promise<IUser> {
-    const password = await User.encryptPassword(pass);
-    return User.create({
-        email,
-        firstName,
-        lastName,
-        userName,
-        password
-    })
-        .then((data: IUser) => data)
-        .catch((err: Error) => { throw err });
-};
+const deleteUserById = async (req: Request, res: Response) => {
+    const {
+        params: { userid },
+    } = req;
 
-async function getUsers(): Promise<IUser[]> {
-    return User.find()
-        .then((data: IUser[]) => data)
-        .catch((err: Error) => { throw err })
-};
-
-async function getUserById(id: string) {
-    return User.findById(id)
-        .then((data) => data)
-        .catch((err: Error) => { throw err })
-};
-
-async function uptadeUserById(id: string, user: IUser) {
-    return User.findByIdAndUpdate(id, user, { new: true })
-        .then((data) => data)
-        .catch((err: Error) => { throw err })
+    try {
+        await User.findByIdAndDelete(userid);
+        return res.status(204).send({ status: "OK" });
+    } catch (error: any) {
+        res
+            .status(error.status || 500)
+            .send({ status: "FAILED", data: { error: error?.message || error } });
+    }
 }
-
-async function deleteUserById(id: string) {
-    return User.findByIdAndDelete(id)
-        .then((data) => data)
-        .catch((err: Error) => { throw err })
-}   
 
 export default {
     createUser,

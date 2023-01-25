@@ -1,12 +1,14 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response } from 'express';
 import connect from './config/dbConfig';
 import "dotenv/config";
+import { createRoles } from './config/intialSetup';
 
 const cors = require('cors');
 const jwt =  require('jsonwebtoken');
 const UserRoutes = require('./Routes/userRoutes');
 
 const app: Application = express();
+createRoles();
 const PORT = process.env.PORT;
 
 //****Dev****

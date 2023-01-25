@@ -7,7 +7,7 @@ export interface IUser extends Document {
     lastName: string;
     password: string;
     userName: string;
-    Roles: string[];
+    roles: string[];
 }
 
 interface User {
@@ -16,7 +16,7 @@ interface User {
     lastName: string;
     password: string;
     userName: string;
-    Roles: string[];
+    roles: string[];
 }
 
 interface UserModel extends Model<User> {
