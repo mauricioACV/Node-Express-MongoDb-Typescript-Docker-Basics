@@ -1,13 +1,14 @@
 import express from "express";
 import UserController from '../Controllers/User.controller';
+import { auth } from '../Middlewares/index';
 
 const router = express.Router();
 
 router
-    .get('/', UserController.getUsers)
-    .get('/:userid', UserController.getUserById)
-    .post('/', UserController.createUser)
-    .patch('/:userid', UserController.uptadeUserById)
-    .delete('/:userid', UserController.deleteUserById)
+    .get('/', auth.validateToken, UserController.getUsers)
+    .get('/:userid', [auth.validateToken, auth.validateIsAdmin], UserController.getUserById)
+    .post('/', [auth.validateToken, auth.validateIsAdmin], UserController.createUser)
+    .patch('/:userid', [auth.validateToken, auth.validateIsAdmin], UserController.uptadeUserById)
+    .delete('/:userid', [auth.validateToken, auth.validateIsAdmin], UserController.deleteUserById)
 
 module.exports = router;

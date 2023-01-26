@@ -6,6 +6,7 @@ import { createRoles } from './config/intialSetup';
 const cors = require('cors');
 const jwt =  require('jsonwebtoken');
 const UserRoutes = require('./Routes/userRoutes');
+const AuthRoutes = require('./Routes/authRoutes');
 
 const app: Application = express();
 createRoles();
@@ -33,6 +34,7 @@ const corsOptions = {
 app.use(express.json());
 // app.use(cors(corsOptions));
 app.use('/api/users', UserRoutes);
+app.use('/api/auth', AuthRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('TS app is running!...');

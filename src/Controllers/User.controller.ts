@@ -27,13 +27,13 @@ const createUser = async (req: Request, res: Response) => {
         const createdUser = await newUser.save();
         const token = jwt.sign(
             {
-                userId: createdUser._id,
+                userid: createdUser._id,
                 email: createdUser.email,
             },
             config.SECRET,
             { expiresIn: "2h" }
         );
-        return res.status(201).send({ status: "Created", data: createdUser, token });
+        return res.status(201).send({ status: "CREATED", data: createdUser, token });
 
     } catch (error: any) {
         res
