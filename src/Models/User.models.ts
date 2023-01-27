@@ -45,7 +45,8 @@ const UserSchema: Schema = new Schema(
         },
         userName: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         roles: [{
             ref: "Role",

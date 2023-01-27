@@ -1,8 +1,7 @@
 import User, { IUser } from '../Models/User.models';
 import { Request, Response } from 'express';
 import Role from '../Models/Role.models';
-import config from '../config/keyConfig';
-const jwt = require("jsonwebtoken");
+import { getJwtToken } from '../Utils/jwt.util';
 
 const createUser = async (req: Request, res: Response) => {
     const { body } = req;
@@ -16,7 +15,7 @@ const createUser = async (req: Request, res: Response) => {
             password: await User.encryptPassword(body.password),
         });
 
-        if (roles) {
+        if (roles.toString() !== "") {
             const foundRoles = await Role.find({ name: { $in: roles } });
             newUser.roles = foundRoles.map(role => role._id);
         } else {
@@ -25,14 +24,12 @@ const createUser = async (req: Request, res: Response) => {
         }
 
         const createdUser = await newUser.save();
-        const token = jwt.sign(
-            {
-                userid: createdUser._id,
-                email: createdUser.email,
-            },
-            config.SECRET,
-            { expiresIn: "2h" }
-        );
+        const userJwtSignObj =             {
+            userid: createdUser._id,
+            email: createdUser.email,
+        };
+
+        const token = getJwtToken(userJwtSignObj);
         return res.status(201).send({ status: "CREATED", data: createdUser, token });
 
     } catch (error: any) {
