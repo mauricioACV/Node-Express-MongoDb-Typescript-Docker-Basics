@@ -1,5 +1,5 @@
 import Role from '../Models/Role.models';
-import User, { IUser } from '../Models/User.models';
+import User from '../Models/User.models';
 
 
 export const createRoles = async () => {

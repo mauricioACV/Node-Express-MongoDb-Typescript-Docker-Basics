@@ -13,13 +13,13 @@ createRoles();
 const PORT = process.env.PORT;
 
 //****Dev****
-const db = 'mongodb://localhost:27017/type-basics';
+// const db = 'mongodb://localhost:27017/type-basics';
 //****Prod****
-// const db = 'mongodb://mongo:27017/type-basics';
+const db = 'mongodb://mongo:27017/type-basics';
 
 connect({ db });
 
-const whitelist = ['http://localhost:3000']
+const whitelist = ['http://localhost:4444']
 const corsOptions = {
     origin: function (origin: string, callback: any) {
     if (whitelist.includes(origin)) {

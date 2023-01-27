@@ -69,12 +69,11 @@ export const checkExistingRoles = async (req: Request, res: Response, next: Next
         if (req.body.roles && req.body.roles.toString() !== "") {
             const reqRoles = req.body.roles;
             const existingRoles = (await Role.find().select({ name: 1, _id: 0 })).map(rol => rol.name);
-            reqRoles.forEach((rol: string) => {
-                if (!existingRoles.includes(rol)) {
+            for (let i = 0; i < reqRoles.length; i++) {
+                if (!existingRoles.includes(reqRoles[i])) {
                     return res.status(400).send({ status: "FAILED", data: { error: "try to register non-existent role" } });
-                }
-            });
-            return;
+                }   
+            }
         }
         next();
     } catch (error: any) {
