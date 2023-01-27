@@ -1,4 +1,6 @@
 import Role from '../Models/Role.models';
+import User, { IUser } from '../Models/User.models';
+
 
 export const createRoles = async () => {
     try {
@@ -11,8 +13,22 @@ export const createRoles = async () => {
             new Role({ name: 'admin' }).save(),
         ]);
 
+        const adminRolId = values.filter(rol => rol.name === "admin")[0]._id;
+
+        const firstAdminUser = new User({
+            firstName: "user",
+            lastName: "admin",
+            userName: "administrator",
+            email: "admin@admin.com",
+            password: await User.encryptPassword("1234"),
+            roles: [`${adminRolId}`]
+        });
+
+        const createdAdminUser = await firstAdminUser.save();
+
         console.log(values);
-        
+        console.log(createdAdminUser);
+
     } catch (error) {
         console.error(error);
     }

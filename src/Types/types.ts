@@ -1,4 +1,4 @@
-import { application, Application } from 'express';
+import { Application } from 'express';
 
 export type RoutesInput = {
     app: Application;
