@@ -1,0 +1,287 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a simple example NodeJS API with Typescript",
+        "version": "1.0.0",
+        "title": "Node Typescript Basics API",
+        "contact": {
+            "email": "abc@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes": ["http"],
+    "host": "localhost:4444",
+    "basePath": "/api/v1",
+    "paths" : {
+        "/users" : {
+            "get" : {
+                "tags":["Users"],
+                "summary" : "Get all the users",
+                "description": "Get all the users",
+                "produces": ["application/json"],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            },
+            "post" : {
+                "tags":["Users"],
+                "summary" : "Save the user",
+                "description": "Save the user",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "user object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "user" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/UserSchema"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}" : {
+            "get" : {
+                "tags":["Users"],
+                "summary" : "Get user by id",
+                "description": "Get user by id",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id that needs to be found",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            },
+            "put" : {
+                "tags":["Users"],
+                "summary" : "Update the user",
+                "description": "Update the user",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id that needs to be update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "task object",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "task" : {
+                                    "type": "object",
+                                    "$ref": "#/definitions/Task"
+                                } 
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            },
+            "delete" : {
+                "tags":["Users"],
+                "summary" : "Delete the user",
+                "description": "Delete the user",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "user id that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/userResponse"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    "definitions": {
+        "userResponse": {
+            "type": "object",
+            "properties": {                       
+                "id": {
+                    "type": "string",
+                    "example": "63d42e92f0889cf5d13b1fba"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "juanito.gonzalez@mail.com"
+                },
+                "firstName": {
+                    "type": "string",
+                    "example": "Juanito"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Gonzalez"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "$2a$10$egO1KKxfP7kFyVFEsfLP.eLoQfil4RkYLs27s6iUIVgz0qGI0pB/i"
+                },
+                "userName": {
+                    "type": "string",
+                    "example": "userName"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": "string",
+                    "example": ["admin", "moderator"]
+                },
+                "createdAt": {
+                    "type": "string",
+                    "example": "2023-01-27T20:06:57.421Z"
+                },
+                "updatedAt": {
+                    "type": "string",
+                    "example": "2023-01-27T20:06:57.421Z"
+                }
+            }
+        },
+        "UserSchema": {
+            "type": "object",
+            "properties": {                       
+                "email": {
+                    "type": "string",
+                    "example": "juanito.gonzalez@mail.com"
+                },
+                "firstName": {
+                    "type": "string",
+                    "example": "Juanito"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Gonzalez"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "1234"
+                },
+                "userName": {
+                    "type": "string",
+                    "example": "userName"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": "string",
+                    "example": ["admin", "moderator"]
+                }
+            }
+        },
+        "InvalidResponse": {
+            "type": "object",
+            "properties": {
+                "statusCode": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+
+        }
+    }
+}

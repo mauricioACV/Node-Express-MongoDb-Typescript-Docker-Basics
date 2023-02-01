@@ -2,20 +2,21 @@ import express, { Application, Request, Response } from 'express';
 import connect from './config/dbConfig';
 import "dotenv/config";
 import { createRoles } from './config/intialSetup';
+import fs = require('fs');
+const swaggerUi = require("swagger-ui-express");
 
 const cors = require('cors');
-const jwt =  require('jsonwebtoken');
-const UserRoutes = require('./Routes/userRoutes');
-const AuthRoutes = require('./Routes/authRoutes');
+const UserRoutes_V1 = require('./Routes/v1/userRoutes');
+const AuthRoutes_V1 = require('./Routes/v1/authRoutes');
 
 const app: Application = express();
 createRoles();
 const PORT = process.env.PORT;
 
 //****Dev****
-// const db = 'mongodb://localhost:27017/type-basics';
+const db = 'mongodb://localhost:27017/type-basics';
 //****Prod****
-const db = 'mongodb://mongo:27017/type-basics';
+// const db = 'mongodb://mongo:27017/type-basics';
 
 connect({ db });
 
@@ -31,10 +32,17 @@ const corsOptions = {
   }
 }
 
+/* Swagger files start */
+const swaggerFile: any = ("src/swagger/swagger.json");
+const swaggerData: any = fs.readFileSync(swaggerFile, 'utf8');
+const swaggerDocument = JSON.parse(swaggerData);
+/* Swagger files end */
+
 app.use(express.json());
 // app.use(cors(corsOptions));
-app.use('/api/users', UserRoutes);
-app.use('/api/auth', AuthRoutes);
+app.use('/api/v1/users', UserRoutes_V1);
+app.use('/api/v1/auth', AuthRoutes_V1);
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, null, null, null));
 
 app.get('/', (req: Request, res: Response) => {
     res.send('TS app is running!...');

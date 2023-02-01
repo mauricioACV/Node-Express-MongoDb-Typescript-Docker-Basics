@@ -13,7 +13,7 @@ RUN npm run build
 FROM node:16-alpine
 WORKDIR /usr
 COPY package.json ./
-RUN npm install --only=production
+RUN npm install --omit=dev
 COPY --from=0 /usr/dist/src .
 RUN npm install pm2 -g
 EXPOSE 4444

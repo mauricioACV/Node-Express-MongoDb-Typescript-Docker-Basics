@@ -57,6 +57,7 @@ const getUserById = async (req: Request, res: Response) => {
 
     try {
         const user = await User.findById(userid);
+        if (!user) return res.send({ status: "FAILED", data: { error: "User not found" } });
         return res.send({ status: "OK", data: user });
     } catch (error: any) {
         res
@@ -73,6 +74,7 @@ const uptadeUserById = async (req: Request, res: Response) => {
 
     try {
         const updatedUser = await User.findByIdAndUpdate(userid, body, { new: true });
+        if (!updatedUser) return res.send({ status: "FAILED", data: { error: "User not found" } });
         return res.status(200).send({ status: "OK", data: updatedUser });
     } catch (error: any) {
         res

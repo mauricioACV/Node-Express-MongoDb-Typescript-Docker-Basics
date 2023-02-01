@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from 'express';
-import User from '../Models/User.models';
-import { getJwtToken } from '../Utils/jwt.util';
+import User from '../../Models/User.models';
+import { getJwtToken } from '../../Utils/jwt.util';
 
 const router = express.Router();
 

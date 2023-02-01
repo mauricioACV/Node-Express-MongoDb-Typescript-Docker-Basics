@@ -1,6 +1,44 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     UserSchema:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           example: 63d42e92f0889cf5d13b1fba
+ *         email: 
+ *           type: string
+ *           example: juanito.gonzalez@mail.com 
+ *         firstName:
+ *           type: string
+ *           example: Juanito
+ *         lastName:
+ *           type: string
+ *           example: Gonzalez
+ *         password:
+ *           type: string
+ *           example: ***********
+ *         createdAt:
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         updatedAt: 
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         userName:
+ *           type: string
+ *           example: userName
+ *         roles:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["admin", "moderator", "user"]
+ */
+
 export interface IUser extends Document {
     email: string;
     firstName: string;
