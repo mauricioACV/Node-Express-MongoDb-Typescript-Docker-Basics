@@ -9,7 +9,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
 
         const authHeader = req.headers["authorization"];
         const token = authHeader && authHeader.split(" ")[1];
-
+        
         if (!token) return res.status(401).send({ status: "FAILED", data: { error: "Token is required" } });
 
         const decoded = jwt.verify(token, config.SECRET);
@@ -50,10 +50,10 @@ export const validateIsAdmin = async (req: Request, res: Response, next: NextFun
 export const checkDuplicateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = await User.findOne({ userName: req.body.username });
-        if(user) return res.status(400).send({ status: "FAILED", data: { error: "user already exists" } });
+        if (user) return res.status(400).send({ status: "FAILED", data: { error: "user already exists" } });
 
         const email = await User.findOne({ email: req.body.email });
-        if(email) return res.status(400).send({ status: "FAILED", data: { error: "email already exists" } });
+        if (email) return res.status(400).send({ status: "FAILED", data: { error: "email already exists" } });
 
         next();
 
@@ -72,7 +72,7 @@ export const checkExistingRoles = async (req: Request, res: Response, next: Next
             for (let i = 0; i < reqRoles.length; i++) {
                 if (!existingRoles.includes(reqRoles[i])) {
                     return res.status(400).send({ status: "FAILED", data: { error: "try to register non-existent role" } });
-                }   
+                }
             }
         }
         next();

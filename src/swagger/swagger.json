@@ -22,7 +22,18 @@
                 "summary" : "Get all the users",
                 "description": "Get all the users",
                 "produces": ["application/json"],
-                "parameters": [],
+                "parameters": [
+                    {
+                      "name": "authorization",
+                      "in": "header",
+                      "description": "JWT access token",
+                      "required": true,
+                      "type": "string"
+                    }
+                ],
+                "security": [{
+                    "bearerAuth": []
+                }],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -54,18 +65,12 @@
                         "description": "user object",
                         "required": true,
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "user" : {
-                                    "type": "object",
-                                    "$ref": "#/definitions/UserSchema"
-                                } 
-                            }
+                            "$ref": "#/definitions/UserSchema"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "successful operation",
                         "schema": {
                             "type": "array",
@@ -210,11 +215,11 @@
                     "type": "string",
                     "example": "juanito.gonzalez@mail.com"
                 },
-                "firstName": {
+                "firstname": {
                     "type": "string",
                     "example": "Juanito"
                 },
-                "lastName": {
+                "lastname": {
                     "type": "string",
                     "example": "Gonzalez"
                 },
@@ -222,7 +227,7 @@
                     "type": "string",
                     "example": "$2a$10$egO1KKxfP7kFyVFEsfLP.eLoQfil4RkYLs27s6iUIVgz0qGI0pB/i"
                 },
-                "userName": {
+                "username": {
                     "type": "string",
                     "example": "userName"
                 },
@@ -248,11 +253,11 @@
                     "type": "string",
                     "example": "juanito.gonzalez@mail.com"
                 },
-                "firstName": {
+                "firstname": {
                     "type": "string",
                     "example": "Juanito"
                 },
-                "lastName": {
+                "lastname": {
                     "type": "string",
                     "example": "Gonzalez"
                 },
@@ -260,7 +265,7 @@
                     "type": "string",
                     "example": "1234"
                 },
-                "userName": {
+                "username": {
                     "type": "string",
                     "example": "userName"
                 },
@@ -274,14 +279,28 @@
         "InvalidResponse": {
             "type": "object",
             "properties": {
-                "statusCode": {
+                "status": {
                     "type": "string"
                 },
-                "message": {
-                    "type": "string"
+                "data": {
+                    "type": "object",
+                    "properties" : {
+                        "error": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
 
         }
-    }
+    },
+    "securityDefinitions": {
+        "bearerAuth": {
+          "name": "authorization",
+          "in": "header",
+          "type": "apiKey",
+          "description": "JWT Authorization header"
+        }
+      },
+      "security": [ { "bearerAuth": [] } ]
 }
