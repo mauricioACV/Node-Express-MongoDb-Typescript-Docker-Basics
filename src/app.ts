@@ -14,9 +14,9 @@ createRoles();
 const PORT = process.env.PORT;
 
 //****Dev****
-const db = 'mongodb://localhost:27017/type-basics';
+// const db = 'mongodb://localhost:27017/type-basics';
 //****Prod****
-// const db = 'mongodb://mongo:27017/type-basics';
+const db = 'mongodb://mongo:27017/type-basics';
 
 connect({ db });
 

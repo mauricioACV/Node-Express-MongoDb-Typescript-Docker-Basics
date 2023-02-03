@@ -233,8 +233,13 @@
                 },
                 "roles": {
                     "type": "array",
-                    "items": "string",
-                    "example": ["admin", "moderator"]
+                    "items": {
+                        "type": "string",
+                        "example": [
+                            "63dd716e8c178c8d83e17da4",
+                            "63dd716e8c178c8d83e17da4"
+                        ]
+                    }
                 },
                 "createdAt": {
                     "type": "string",
@@ -271,8 +276,13 @@
                 },
                 "roles": {
                     "type": "array",
-                    "items": "string",
-                    "example": ["admin", "moderator"]
+                    "items": {
+                        "type": "string",
+                        "example": [
+                            "admin",
+                            "moderator"
+                        ]
+                    }
                 }
             }
         },
