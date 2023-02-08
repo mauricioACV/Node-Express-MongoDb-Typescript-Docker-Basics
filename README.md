@@ -13,7 +13,13 @@ Necesita tener instalado los siguientes programas:
 
 ### `Cómo Iniciar la App`
 
-Primero, instalar las dependencias de la app:
+Primero, instalar TypeScript de forma global:
+
+```bash
+$ npm install -g typescript
+```
+
+Luego, instalar las dependencias de la app:
 
 ```bash
 $ npm install
