@@ -10,15 +10,15 @@ const UserRoutes_V1 = require('./Routes/v1/userRoutes');
 const AuthRoutes_V1 = require('./Routes/v1/authRoutes');
 
 const app: Application = express();
-createRoles();
 const PORT = process.env.PORT;
 
 //****Dev****
-// const db = 'mongodb://localhost:27017/type-basics';
+const db = 'mongodb://localhost:27017/type-basics';
 //****Prod****
-const db = 'mongodb://mongo:27017/type-basics';
+// const db = 'mongodb://mongo:27017/type-basics';
 
 connect({ db });
+createRoles();
 
 const whitelist = ['http://localhost:4444']
 const corsOptions = {
