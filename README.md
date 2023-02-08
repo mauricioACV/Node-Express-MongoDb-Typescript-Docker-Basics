@@ -118,7 +118,7 @@ Utilizar Postman para realizar un solcitud POST. En el body (raw) utilizar el si
 }
 ```
 
-Recibirá de respuesta un objeo JSON con la siguiente información:
+Recibirá de respuesta un objeto JSON con la siguiente información:
 
 ```bash
 {
