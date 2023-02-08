@@ -157,6 +157,6 @@ Con el contenedor Docker corriendo, o ejecutando la app en modo dev, acceda a la
 
 - http://localhost:4444/api/docs/
 
-Luego presione el botón "Authorize", escriba "Bearer", luego un espacio, y peque el token antes copiado.
+Luego presione el botón "Authorize", escriba "Bearer", luego un espacio, y pegue el token antes copiado.
 
 La documentación lo guiará en la operaciones disponibles para ejecutar solicitudes Http a la API.
