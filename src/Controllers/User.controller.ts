@@ -69,13 +69,26 @@ const getUserById = async (req: Request, res: Response) => {
 const uptadeUserById = async (req: Request, res: Response) => {
     const {
         body,
+        body: { roles },
         params: { userid },
     } = req;
 
     try {
+        const { roles } = body;
+
+        if (body.password) {
+            body.password = await User.encryptPassword(body.password);
+        }
+
+        if (roles.toString() !== "") {
+            const foundRoles = await Role.find({ name: { $in: roles } });
+            body.roles = foundRoles.map(role => role._id);
+        }
+
         const updatedUser = await User.findByIdAndUpdate(userid, body, { new: true });
         if (!updatedUser) return res.send({ status: "FAILED", data: { error: "User not found" } });
         return res.status(200).send({ status: "OK", data: updatedUser });
+
     } catch (error: any) {
         res
             .status(error.status || 500)

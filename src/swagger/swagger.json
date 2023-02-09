@@ -122,7 +122,7 @@
                     }
                 }
             },
-            "put" : {
+            "patch" : {
                 "tags":["Users"],
                 "summary" : "Update the user",
                 "description": "Update the user",
@@ -138,16 +138,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "task object",
+                        "description": "user object",
                         "required": true,
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "task" : {
-                                    "type": "object",
-                                    "$ref": "#/definitions/Task"
-                                } 
-                            }
+                            "$ref": "#/definitions/UserSchema"
                         }
                     }
                 ],
@@ -155,9 +149,15 @@
                     "200": {
                         "description": "successful operation",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/userResponse"
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "OK"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/userResponse"
+                                }
                             }
                         }
                     },
@@ -256,7 +256,7 @@
             "properties": {                       
                 "email": {
                     "type": "string",
-                    "example": "juanito.gonzalez@mail.com"
+                    "example": "juanito.gonzalez@gmail.com"
                 },
                 "firstname": {
                     "type": "string",
@@ -278,10 +278,7 @@
                     "type": "array",
                     "items": {
                         "type": "string",
-                        "example": [
-                            "admin",
-                            "moderator"
-                        ]
+                        "example": "admin"
                     }
                 }
             }
