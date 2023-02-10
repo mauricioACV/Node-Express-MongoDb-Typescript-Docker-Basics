@@ -115,7 +115,9 @@ Las credenciales creadas para ejecutar solicitudes a la API son:
 ### `Ejecutar Solicitudes Http`
 
 ### Primero obtenga Token de Autorización
-Utilizar Postman para realizar una solicitud POST a la ruta localhost:4444/api/v1/auth/signin 
+Utilizar Postman para realizar una solicitud POST a la ruta:
+
+- localhost:4444/api/v1/auth/signin 
 
 En el body (raw) utilizar el siguiente objeto JSON:
 
