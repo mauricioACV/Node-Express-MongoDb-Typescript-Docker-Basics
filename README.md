@@ -116,11 +116,12 @@ Las credenciales creadas para ejecutar solicitudes a la API son:
 
 La aplicación debe estar en ejecución en modo DEV o corriendo en contenedor Docker.
 ### Primero obtenga Token de Autorización
-Utilizar Postman para realizar una solicitud POST a la ruta:
 
-- localhost:4444/api/v1/auth/signin 
+Con el contenedor Docker corriendo, o ejecutando la app en modo dev, acceda a la documentación de la API (swagger 2.0):
 
-En el body (raw) utilizar el siguiente objeto JSON:
+- http://localhost:4444/api/docs/
+
+Luego expanda la ruta POST de la ruta "AUTH", y haga click en "Try it out". Se muestra el siguiente objeto
 
 ```bash
 {
@@ -129,7 +130,7 @@ En el body (raw) utilizar el siguiente objeto JSON:
 }
 ```
 
-Recibirá de respuesta un objeto JSON con la siguiente información:
+Haga click en bot+on "Execute". Recibirá de respuesta un objeto JSON con la siguiente información:
 
 ```bash
 {
@@ -156,12 +157,6 @@ Recibirá de respuesta un objeto JSON con la siguiente información:
 
 Copie el string de la propiedad "token".
 
-### Acceda a Documentación de Swagger
-
-Con el contenedor Docker corriendo, o ejecutando la app en modo dev, acceda a la siguiente dirección:
-
-- http://localhost:4444/api/docs/
-
-Luego presione el botón "Authorize", escriba "Bearer", luego un espacio, y pegue el token antes copiado.
+En la parte superior de la página de documentación de la API presione el botón "Authorize", escriba "Bearer", luego un espacio, y pegue el token antes copiado.
 
 La documentación lo guiará en la operaciones disponibles para ejecutar solicitudes Http a la API.

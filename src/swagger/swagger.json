@@ -35,17 +35,21 @@
                     }
                 ],
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "successful operation",
                         "schema": {
                             "type": "object",
                             "properties": {
                                 "status": {
                                     "type": "string",
-                                    "example": "CREATED"
+                                    "example": "OK"
                                 },
                                 "data": {
                                     "$ref": "#/definitions/userResponse"
+                                },
+                                "token": {
+                                    "type": "string",
+                                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2M2UzYmEzZmVlZTlmMjI5MTc1ZDJmNGEiLCJpYXQiOjE2NzYwNjI2MjksImV4cCI6MTY3NjA2OTgyOX0.5glboeZ5I_Bzr9AadjOiHtJcVs55MjmZjap1-Tk6DUA"
                                 }
                             }
                         }
