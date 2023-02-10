@@ -121,7 +121,7 @@ Con el contenedor Docker corriendo, o ejecutando la app en modo dev, acceda a la
 
 - http://localhost:4444/api/docs/
 
-Luego expanda la ruta POST de la ruta "AUTH", y haga click en "Try it out". Se muestra el siguiente objeto:
+Luego expanda la ruta POST de la ruta "AUTH", y haga click en "Try it out". Se muestra el siguiente objeto JSON:
 
 ```bash
 {
