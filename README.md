@@ -114,6 +114,7 @@ Las credenciales creadas para ejecutar solicitudes a la API son:
 
 ### `Ejecutar Solicitudes Http`
 
+La aplicación debe estar en ejecución en modo DEV o corriendo en contenedor Docker.
 ### Primero obtenga Token de Autorización
 Utilizar Postman para realizar una solicitud POST a la ruta:
 
