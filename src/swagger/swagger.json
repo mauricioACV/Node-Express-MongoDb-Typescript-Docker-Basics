@@ -38,9 +38,19 @@
                     "200": {
                         "description": "successful operation",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/userResponse"
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "OK"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "$ref": "#/definitions/userResponse"
+                                    }
+                                }
                             }
                         }
                     },
@@ -73,9 +83,15 @@
                     "201": {
                         "description": "successful operation",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/userResponse"
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "CREATED"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/userResponse"
+                                }
                             }
                         }
                     },
@@ -108,9 +124,15 @@
                     "200": {
                         "description": "successful operation",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/userResponse"
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "OK"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/userResponse"
+                                }
                             }
                         }
                     },
@@ -184,14 +206,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/userResponse"
-                            }
-                        }
+                    "204": {
+                        "description": "No Content"
                     },
                     "400": {
                         "description": "Invalid status value",
@@ -235,10 +251,7 @@
                     "type": "array",
                     "items": {
                         "type": "string",
-                        "example": [
-                            "63dd716e8c178c8d83e17da4",
-                            "63dd716e8c178c8d83e17da4"
-                        ]
+                        "example": "63dd716e8c178c8d83e17da4"
                     }
                 },
                 "createdAt": {
@@ -287,13 +300,15 @@
             "type": "object",
             "properties": {
                 "status": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "FAILED"
                 },
                 "data": {
                     "type": "object",
                     "properties" : {
                         "error": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Message error"
                         }
                     }
                 }
