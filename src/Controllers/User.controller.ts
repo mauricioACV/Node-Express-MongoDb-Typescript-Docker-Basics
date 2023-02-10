@@ -74,7 +74,6 @@ const uptadeUserById = async (req: Request, res: Response) => {
     } = req;
 
     try {
-        const { roles } = body;
 
         if (body.password) {
             body.password = await User.encryptPassword(body.password);

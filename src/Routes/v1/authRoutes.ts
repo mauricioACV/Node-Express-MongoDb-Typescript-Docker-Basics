@@ -18,11 +18,11 @@ router
     })
     .post('/signin', async (req: Request, res: Response) => {
         try {
-            const user = await User.findOne({ userName: req.body.username }).populate('roles');
+            const user = await User.findOne({ userName: req.body.username }, { roles: { _id: 0 } }).populate('roles');
             if (!user) return res.status(400).send({ status: "FAILED", data: { error: "User Not Found" } });
             const matchPassword = await User.comparePassword(req.body.password, user.password);
             const userJwtSignObj = { userid: user._id };
-            const token = getJwtToken(userJwtSignObj);
+            const token: string = getJwtToken(userJwtSignObj);
             if (!matchPassword) return res.status(401).send({ status: "FAILED", data: { error: "Invalid Password" } });
             return res.status(200).send({ status: "OK", data: user, token });
         } catch (error: any) {

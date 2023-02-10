@@ -16,6 +16,49 @@
     "host": "localhost:4444",
     "basePath": "/api/v1",
     "paths" : {
+        "/auth/signin" : {
+            "post" : {
+                "tags":["Auth"],
+                "summary" : "User Authentication Route",
+                "description": "User Authentication Route",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "user object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/AuthSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "CREATED"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/userResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users" : {
             "get" : {
                 "tags":["Users"],
@@ -293,6 +336,19 @@
                         "type": "string",
                         "example": "admin"
                     }
+                }
+            }
+        },
+        "AuthSchema": {
+            "type": "object",
+            "properties": {                       
+                "username": {
+                    "type": "string",
+                    "example": "administrator"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "1234"
                 }
             }
         },
