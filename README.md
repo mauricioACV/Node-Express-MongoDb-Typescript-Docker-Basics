@@ -130,7 +130,7 @@ Luego expanda la ruta POST de la ruta "AUTH", y haga click en "Try it out". Se m
 }
 ```
 
-Haga click en bot+on "Execute". Recibirá de respuesta un objeto JSON con la siguiente información:
+Haga click en botón "Execute". Recibirá de respuesta un objeto JSON con la siguiente información:
 
 ```bash
 {
