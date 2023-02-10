@@ -115,7 +115,7 @@ Las credenciales creadas para ejecutar solicitudes a la API son:
 ### `Ejecutar Solicitudes Http`
 
 ### Primero obtenga Token de Autorización
-Utilizar Postman para realizar un solcitud POST. En el body (raw) utilizar el siguiente objeto JSON:
+Utilizar Postman para realizar una solicitud POST. En el body (raw) utilizar el siguiente objeto JSON:
 
 ```bash
 {
