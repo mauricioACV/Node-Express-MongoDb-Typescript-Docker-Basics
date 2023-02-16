@@ -25,6 +25,28 @@ Luego, instalar las dependencias de la app:
 $ npm install
 ```
 
+### Declarar tipo userid en carpeta @types de node_modules
+
+Para poder manipular el objeto req (request) y evitar que Typescript arroje error por propiedad en objeto no existente, realicé los siguientes pasos:
+
+- Acceda a carpeta node_modules
+- Luego acceda a carpeta @types
+- Finalmente acceda a carpeta express y edite el archivo index.d.ts
+
+A continuación de las importaciones dentro del archivo index.d.ts pegue el siguiente código:
+
+```bash
+declare global{
+    namespace Express {
+        interface Request {
+            userid: UserModel
+        }
+    }
+}
+```
+
+Grabe los cambios y cierre el archivo.
+
 ### Iniciar en Modo Dev
 Para ejecutar pruebas durante el desarrollo, en archivo app.ts, asegurese de comentar la línea de código debajo de *** Prod *** y tener descomentada la línea de código debajo de *** Dev *** :
 
